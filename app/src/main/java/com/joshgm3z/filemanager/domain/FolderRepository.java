@@ -39,6 +39,7 @@ public class FolderRepository {
     public List<Folder> getFolderPath(long folderId) {
         Folder folder = mFolderDao.getFolder(folderId);
         List<Folder> folderPathList = new ArrayList<>();
+        folderPathList.add(folder);
         while (folder.getParentId() != Const.INVALID_ID) {
             folder = mFolderDao.getFolder(folder.getParentId());
             folderPathList.add(folder);
