@@ -8,6 +8,7 @@ import com.joshgm3z.filemanager.domain.room.FolderDatabase;
 import com.joshgm3z.filemanager.util.Const;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FolderRepository {
@@ -42,6 +43,7 @@ public class FolderRepository {
             folder = mFolderDao.getFolder(folder.getParentId());
             folderPathList.add(folder);
         }
+        Collections.reverse(folderPathList);
         return folderPathList;
     }
 

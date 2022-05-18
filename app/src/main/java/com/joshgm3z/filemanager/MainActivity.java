@@ -1,6 +1,7 @@
 package com.joshgm3z.filemanager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     private ImageView mIvNewFolder;
     private RelativeLayout mRlNoContent;
     private RecyclerView mRvFolderList;
+    private RecyclerView mRvFolderPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +55,8 @@ public class MainActivity extends AppCompatActivity implements FolderView,
 
         mRvFolderList = findViewById(R.id.rv_folder);
         mRvFolderList.setAdapter(mFolderAdapter);
-        RecyclerView rvFolderPath = findViewById(R.id.rv_folder_path);
-        rvFolderPath.setAdapter(mFolderPathAdapter);
+        mRvFolderPath = findViewById(R.id.rv_folder_path);
+        mRvFolderPath.setAdapter(mFolderPathAdapter);
 
         mTvActionBarTitle = findViewById(R.id.tv_action_bar_title);
         mIvBackArrow = findViewById(R.id.iv_back_arrow);
@@ -79,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     @Override
     public void updateFolderPath(List<Folder> folderList) {
         mFolderPathAdapter.setPathFolderList(folderList);
+        mRvFolderPath.scrollToPosition(folderList.size() - 1);
     }
 
     @Override
