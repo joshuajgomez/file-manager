@@ -50,8 +50,13 @@ public class FolderViewModel {
     }
 
     public void goToParentFolder() {
-        int parentId = mCurrentFolder.getParentId();
+        long parentId = mCurrentFolder.getParentId();
         mCurrentFolder = mFolderRepository.getFolder(parentId);
+        refreshContent();
+    }
+
+    public void onNewFolderClick(String folderName) {
+        mFolderRepository.createNewFolder(mCurrentFolder, folderName);
         refreshContent();
     }
 }

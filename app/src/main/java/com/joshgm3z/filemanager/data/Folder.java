@@ -3,7 +3,6 @@ package com.joshgm3z.filemanager.data;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,22 +10,22 @@ import java.util.List;
 public class Folder {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
-    private int parentId;
+    private long id;
+    private long parentId;
     private String name;
 
-    public void setChildFolderIdList(List<Integer> childFolderIdList) {
+    public void setChildFolderIdList(List<Long> childFolderIdList) {
         this.childFolderIdList = childFolderIdList;
     }
 
-    public void setChildFileDataIdList(List<Integer> childFileDataIdList) {
+    public void setChildFileDataIdList(List<Long> childFileDataIdList) {
         this.childFileDataIdList = childFileDataIdList;
     }
 
-    private List<Integer> childFolderIdList = new ArrayList<>();
-    private List<Integer> childFileDataIdList = new ArrayList<>();
+    private List<Long> childFolderIdList = new ArrayList<>();
+    private List<Long> childFileDataIdList = new ArrayList<>();
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -34,11 +33,11 @@ public class Folder {
         this.id = id;
     }
 
-    public int getParentId() {
+    public long getParentId() {
         return parentId;
     }
 
-    public void setParentId(int parentId) {
+    public void setParentId(long parentId) {
         this.parentId = parentId;
     }
 
@@ -50,16 +49,15 @@ public class Folder {
         this.name = name;
     }
 
-    public List<Integer> getChildFolderIdList() {
+    public List<Long> getChildFolderIdList() {
         return childFolderIdList;
     }
 
-    public void addFolder(Folder folder) {
-        this.childFolderIdList.add(folder.getId());
-        folder.setParentId(getId());
+    public void addFolder(long folderId) {
+        this.childFolderIdList.add(folderId);
     }
 
-    public List<Integer> getChildFileDataIdList() {
+    public List<Long> getChildFileDataIdList() {
         return childFileDataIdList;
     }
 

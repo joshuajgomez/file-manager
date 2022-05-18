@@ -3,7 +3,7 @@ package com.joshgm3z.filemanager.data;
 public class FileData {
 
     private String mName;
-    private int mId = 2;
+    private long mId = 2;
     private Folder mParent;
 
     public String getName() {
@@ -14,11 +14,11 @@ public class FileData {
         this.mName = mName;
     }
 
-    public int getId() {
+    public long getId() {
         return mId;
     }
 
-    public void setId(int mId) {
+    public void setId(long mId) {
         this.mId = mId;
     }
 

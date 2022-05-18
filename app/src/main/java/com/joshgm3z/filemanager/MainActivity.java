@@ -3,8 +3,11 @@ package com.joshgm3z.filemanager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -12,6 +15,7 @@ import android.widget.TextView;
 import com.joshgm3z.filemanager.data.Folder;
 import com.joshgm3z.filemanager.domain.FolderRepository;
 import com.joshgm3z.filemanager.util.Logger;
+import com.joshgm3z.filemanager.view.FolderNameDialog;
 import com.joshgm3z.filemanager.view.adapter.FolderAdapter;
 import com.joshgm3z.filemanager.view.adapter.FolderPathAdapter;
 import com.joshgm3z.filemanager.view.viewholder.FolderPathViewHolder;
@@ -21,13 +25,18 @@ import com.joshgm3z.filemanager.view.viewmodel.FolderViewModel;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements FolderView, FolderViewHolder.FolderClickListener, FolderPathViewHolder.FolderPathClickListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements FolderView,
+        FolderViewHolder.FolderClickListener,
+        FolderPathViewHolder.FolderPathClickListener,
+        View.OnClickListener,
+        FolderNameDialog.FolderNameDialogListener {
 
     private FolderViewModel mViewModel;
     private FolderAdapter mFolderAdapter = new FolderAdapter(this);
     private FolderPathAdapter mFolderPathAdapter = new FolderPathAdapter(this);
     private TextView mTvActionBarTitle;
     private ImageView mIvBackArrow;
+    private ImageView mIvNewFolder;
     private RelativeLayout mRlNoContent;
     private RecyclerView mRvFolderList;
 
@@ -52,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements FolderView, Folde
         mIvBackArrow.setOnClickListener(this);
 
         mRlNoContent = findViewById(R.id.rl_content_info);
+        mIvNewFolder = findViewById(R.id.iv_new_folder);
+        mIvNewFolder.setOnClickListener(this);
     }
 
     @Override
@@ -117,6 +128,13 @@ public class MainActivity extends AppCompatActivity implements FolderView, Folde
     public void onClick(View view) {
         if (view.getId() == mIvBackArrow.getId()) {
             onBackPressed();
+        } else if (view.getId() == mIvNewFolder.getId()) {
+            new FolderNameDialog().show(this, this);
         }
+    }
+
+    @Override
+    public void onFolderNameDialogResult(String folderName) {
+        mViewModel.onNewFolderClick(folderName);
     }
 }

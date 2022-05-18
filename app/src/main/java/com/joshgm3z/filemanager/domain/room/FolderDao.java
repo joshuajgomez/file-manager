@@ -15,7 +15,10 @@ import java.util.List;
 public interface FolderDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void add(Folder folder);
+    long add(Folder folder);
+
+    @Update
+    int update(Folder folder);
 
     @Query("select * from Folder")
     List<Folder> getAll();
@@ -24,7 +27,7 @@ public interface FolderDao {
     void delete(Folder folder);
 
     @Query("select * from Folder where id = :id")
-    Folder getFolder(int id);
+    Folder getFolder(long id);
 
     @Query("select * from Folder where parentId = -1")
     Folder getRootFolder();

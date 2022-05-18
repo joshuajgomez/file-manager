@@ -13,43 +13,52 @@ import java.util.List;
 public class FolderRepository {
 
     private Context context;
-    private FolderDao folderDao;
+    private FolderDao mFolderDao;
 
     public FolderRepository(Context context) {
         this.context = context;
 //        FakeData.addFakeFolderData(context);
-        folderDao = FolderDatabase.getInstance(context).folderDao();
+        mFolderDao = FolderDatabase.getInstance(context).folderDao();
     }
 
     public void addFolder(Folder folder) {
-        folderDao.add(folder);
+        mFolderDao.add(folder);
     }
 
-    public List<Folder> getFolderContent(int folderId) {
-        Folder folder = folderDao.getFolder(folderId);
-        List<Integer> folderIdList = folder.getChildFolderIdList();
+    public List<Folder> getFolderContent(long folderId) {
+        Folder folder = mFolderDao.getFolder(folderId);
+        List<Long> folderIdList = folder.getChildFolderIdList();
         List<Folder> folderList = new ArrayList<>();
-        for (Integer id : folderIdList) {
-            folderList.add(folderDao.getFolder(id));
+        for (Long id : folderIdList) {
+            folderList.add(mFolderDao.getFolder(id));
         }
         return folderList;
     }
 
-    public List<Folder> getFolderPath(int folderId) {
-        Folder folder = folderDao.getFolder(folderId);
+    public List<Folder> getFolderPath(long folderId) {
+        Folder folder = mFolderDao.getFolder(folderId);
         List<Folder> folderPathList = new ArrayList<>();
         while (folder.getParentId() != Const.INVALID_ID) {
-            folder = folderDao.getFolder(folder.getParentId());
+            folder = mFolderDao.getFolder(folder.getParentId());
             folderPathList.add(folder);
         }
         return folderPathList;
     }
 
     public Folder getRootFolder() {
-        return folderDao.getRootFolder();
+        return mFolderDao.getRootFolder();
     }
 
-    public Folder getFolder(int id) {
-        return folderDao.getFolder(id);
+    public Folder getFolder(long id) {
+        return mFolderDao.getFolder(id);
+    }
+
+    public void createNewFolder(Folder parentFolder, String folderName) {
+        Folder folder = new Folder();
+        folder.setName(folderName);
+        folder.setParentId(parentFolder.getId());
+        long folderId = mFolderDao.add(folder);
+        parentFolder.addFolder(folderId);
+        mFolderDao.update(parentFolder);
     }
 }

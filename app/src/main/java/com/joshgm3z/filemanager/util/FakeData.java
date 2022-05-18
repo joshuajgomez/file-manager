@@ -28,12 +28,12 @@ public class FakeData {
         child11.setId(3);
         child11.setName("child11");
         child11.setParentId(child1.getParentId());
-        child1.addFolder(child11);
+        child1.addFolder(child11.getId());
         Folder child12 = new Folder();
         child12.setId(4);
         child12.setName("child12");
         child12.setParentId(child1.getParentId());
-        child1.addFolder(child12);
+        child1.addFolder(child12.getId());
 
         Folder child2 = new Folder();
         child2.setId(5);
@@ -43,16 +43,16 @@ public class FakeData {
         child21.setId(6);
         child21.setName("child21");
         child21.setParentId(child2.getParentId());
-        child2.addFolder(child21);
+        child2.addFolder(child21.getId());
 
         Folder child3 = new Folder();
         child3.setId(7);
         child3.setName("child3");
         child3.setParentId(root.getParentId());
 
-        root.addFolder(child1);
-        root.addFolder(child2);
-        root.addFolder(child3);
+        root.addFolder(child1.getId());
+        root.addFolder(child2.getId());
+        root.addFolder(child3.getId());
 
         Logger.a("root: " + root);
 

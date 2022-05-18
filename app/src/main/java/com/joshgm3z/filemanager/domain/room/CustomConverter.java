@@ -11,14 +11,14 @@ import java.util.List;
 public class CustomConverter {
 
     @TypeConverter
-    public static List<Integer> fromString(String value) {
-        Type listType = new TypeToken<List<Integer>>() {
+    public static List<Long> fromString(String value) {
+        Type listType = new TypeToken<List<Long>>() {
         }.getType();
         return new Gson().fromJson(value, listType);
     }
 
     @TypeConverter
-    public static String fromArrayList(List<Integer> list) {
+    public static String fromArrayList(List<Long> list) {
         Gson gson = new Gson();
         String json = gson.toJson(list);
         return json;
