@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joshgm3z.filemanager.data.Folder;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements FolderView, Folde
     private FolderPathAdapter mFolderPathAdapter = new FolderPathAdapter(this);
     private TextView mTvActionBarTitle;
     private ImageView mIvBackArrow;
+    private RelativeLayout mRlNoContent;
+    private RecyclerView mRvFolderList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +42,16 @@ public class MainActivity extends AppCompatActivity implements FolderView, Folde
     private void initUI() {
         mViewModel = new FolderViewModel(new FolderRepository(getApplicationContext()), this);
 
-        RecyclerView rvFolder = findViewById(R.id.rv_folder);
-        rvFolder.setAdapter(mFolderAdapter);
+        mRvFolderList = findViewById(R.id.rv_folder);
+        mRvFolderList.setAdapter(mFolderAdapter);
         RecyclerView rvFolderPath = findViewById(R.id.rv_folder_path);
         rvFolderPath.setAdapter(mFolderPathAdapter);
 
         mTvActionBarTitle = findViewById(R.id.tv_action_bar_title);
         mIvBackArrow = findViewById(R.id.iv_back_arrow);
         mIvBackArrow.setOnClickListener(this);
+
+        mRlNoContent = findViewById(R.id.rl_content_info);
     }
 
     @Override
@@ -57,13 +62,11 @@ public class MainActivity extends AppCompatActivity implements FolderView, Folde
 
     @Override
     public void updateFolderContent(List<Folder> folderList) {
-        Logger.a("folderList: " + folderList);
         mFolderAdapter.setFolderList(folderList);
     }
 
     @Override
     public void updateFolderPath(List<Folder> folderList) {
-        Logger.a("folderPathList: " + folderList);
         mFolderPathAdapter.setPathFolderList(folderList);
     }
 
@@ -83,6 +86,12 @@ public class MainActivity extends AppCompatActivity implements FolderView, Folde
         } else {
             mIvBackArrow.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void showContentEmptyText(boolean isVisible) {
+        mRlNoContent.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+        mRvFolderList.setVisibility(isVisible ? View.GONE : View.VISIBLE);
     }
 
     @Override

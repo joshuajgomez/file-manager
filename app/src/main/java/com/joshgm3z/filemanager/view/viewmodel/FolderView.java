@@ -13,4 +13,6 @@ public interface FolderView {
     void setFolderName(String name);
 
     void showBackArrow(boolean isShow);
+
+    void showContentEmptyText(boolean isVisible);
 }

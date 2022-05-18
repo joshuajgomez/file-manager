@@ -7,31 +7,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="?attr/colorPrimaryDark"
-        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
-
-        <ImageView
-            android:id="@+id/iv_back_arrow"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="?attr/selectableItemBackground"
-            android:padding="13dp"
-            android:src="@drawable/ic_arrow_left_light" />
-
-        <TextView
-            android:layout_marginStart="20dp"
-            android:id="@+id/tv_action_bar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/iv_back_arrow"
-            android:text="@string/app_name"
-            android:textColor="?attr/colorOnPrimary"
-            android:textSize="18sp" />
-    </RelativeLayout>
+    <include layout="@layout/part_main_action_bar"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_folder_path"
@@ -53,5 +29,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="13"
         tools:listitem="@layout/layout_item_folder" />
+
+    <include layout="@layout/part_main_content"/>
 
 </LinearLayout>

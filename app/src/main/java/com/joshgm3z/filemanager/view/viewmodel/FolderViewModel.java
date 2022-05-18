@@ -20,14 +20,19 @@ public class FolderViewModel {
     public void refreshContent() {
         if (mCurrentFolder != null) {
             List<Folder> folderList = mFolderRepository.getFolderContent(mCurrentFolder.getId());
-            mView.updateFolderContent(folderList);
-
+            if (folderList.isEmpty()) {
+                mView.showContentEmptyText(true);
+            } else {
+                mView.showContentEmptyText(false);
+                mView.updateFolderContent(folderList);
+            }
             List<Folder> folderPathList = mFolderRepository.getFolderPath(mCurrentFolder.getId());
             mView.updateFolderPath(folderPathList);
             mView.setFolderName(mCurrentFolder.getName());
             mView.showBackArrow(true);
         } else {
             List<Folder> list = new ArrayList<>();
+            mView.showContentEmptyText(false);
             list.add(mFolderRepository.getRootFolder());
             mView.updateFolderContent(list);
             mView.showBackArrow(false);
