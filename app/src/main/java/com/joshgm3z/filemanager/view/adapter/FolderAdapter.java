@@ -17,12 +17,18 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderViewHolder> {
 
     private List<Folder> mFolderList;
 
+    private FolderViewHolder.FolderClickListener mListener;
+
+    public FolderAdapter(FolderViewHolder.FolderClickListener listener) {
+        this.mListener = listener;
+    }
+
     @NonNull
     @Override
     public FolderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.layout_item_folder, parent, false);
-        return new FolderViewHolder(view);
+        return new FolderViewHolder(view, mListener);
     }
 
     @Override

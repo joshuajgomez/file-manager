@@ -10,15 +10,16 @@ import com.joshgm3z.filemanager.domain.FolderRepository;
 import com.joshgm3z.filemanager.util.Logger;
 import com.joshgm3z.filemanager.view.adapter.FolderAdapter;
 import com.joshgm3z.filemanager.view.adapter.FolderPathAdapter;
+import com.joshgm3z.filemanager.view.viewholder.FolderViewHolder;
 import com.joshgm3z.filemanager.view.viewmodel.FolderView;
 import com.joshgm3z.filemanager.view.viewmodel.FolderViewModel;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements FolderView {
+public class MainActivity extends AppCompatActivity implements FolderView, FolderViewHolder.FolderClickListener {
 
     private FolderViewModel mViewModel;
-    private FolderAdapter mFolderAdapter = new FolderAdapter();
+    private FolderAdapter mFolderAdapter = new FolderAdapter(this);
     private FolderPathAdapter mFolderPathAdapter = new FolderPathAdapter();
 
     @Override
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements FolderView {
     @Override
     protected void onResume() {
         super.onResume();
-        mViewModel.onUiResume();
+        mViewModel.refreshContent();
     }
 
     @Override
@@ -54,5 +55,19 @@ public class MainActivity extends AppCompatActivity implements FolderView {
     public void updateFolderPath(List<Folder> folderList) {
         Logger.a("folderPathList: " + folderList);
         mFolderPathAdapter.setPathFolderList(folderList);
+    }
+
+    @Override
+    public void onFolderCLick(Folder folder) {
+        mViewModel.updateCurrentFolder(folder);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mViewModel.getCurrentFolder() != null) {
+            mViewModel.goToParentFolder();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

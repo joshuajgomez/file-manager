@@ -6,7 +6,6 @@ import com.joshgm3z.filemanager.data.Folder;
 import com.joshgm3z.filemanager.domain.room.FolderDao;
 import com.joshgm3z.filemanager.domain.room.FolderDatabase;
 import com.joshgm3z.filemanager.util.Const;
-import com.joshgm3z.filemanager.util.FakeData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,5 +47,9 @@ public class FolderRepository {
 
     public Folder getRootFolder() {
         return folderDao.getRootFolder();
+    }
+
+    public Folder getFolder(int id) {
+        return folderDao.getFolder(id);
     }
 }
