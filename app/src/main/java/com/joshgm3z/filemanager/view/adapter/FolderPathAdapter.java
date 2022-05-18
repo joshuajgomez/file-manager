@@ -16,13 +16,18 @@ import java.util.List;
 public class FolderPathAdapter extends RecyclerView.Adapter<FolderPathViewHolder> {
 
     private List<Folder> mPathFolderList;
+    private FolderPathViewHolder.FolderPathClickListener mListener;
+
+    public FolderPathAdapter(FolderPathViewHolder.FolderPathClickListener listener) {
+        this.mListener = listener;
+    }
 
     @NonNull
     @Override
     public FolderPathViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.layout_item_path, parent, false);
-        return new FolderPathViewHolder(view);
+        return new FolderPathViewHolder(view, mListener);
     }
 
     @Override

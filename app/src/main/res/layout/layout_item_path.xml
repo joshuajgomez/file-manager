@@ -7,17 +7,18 @@
     android:paddingEnd="5dp"
     android:gravity="center_vertical">
 
+    <ImageView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:src="@drawable/ic_folder_path_left" />
+
     <TextView
+        android:layout_marginStart="5dp"
         android:id="@+id/tv_folder_item_path"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="folder1"
+        android:textColor="?attr/colorPrimaryDark"
         android:textSize="15sp" />
-
-    <ImageView
-        android:layout_marginStart="3dp"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:src="@drawable/ic_folder_path_dark" />
 
 </LinearLayout>

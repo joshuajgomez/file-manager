@@ -4,23 +4,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.joshgm3z.filemanager.data.Folder;
 import com.joshgm3z.filemanager.domain.FolderRepository;
 import com.joshgm3z.filemanager.util.Logger;
 import com.joshgm3z.filemanager.view.adapter.FolderAdapter;
 import com.joshgm3z.filemanager.view.adapter.FolderPathAdapter;
+import com.joshgm3z.filemanager.view.viewholder.FolderPathViewHolder;
 import com.joshgm3z.filemanager.view.viewholder.FolderViewHolder;
 import com.joshgm3z.filemanager.view.viewmodel.FolderView;
 import com.joshgm3z.filemanager.view.viewmodel.FolderViewModel;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements FolderView, FolderViewHolder.FolderClickListener {
+public class MainActivity extends AppCompatActivity implements FolderView, FolderViewHolder.FolderClickListener, FolderPathViewHolder.FolderPathClickListener, View.OnClickListener {
 
     private FolderViewModel mViewModel;
     private FolderAdapter mFolderAdapter = new FolderAdapter(this);
-    private FolderPathAdapter mFolderPathAdapter = new FolderPathAdapter();
+    private FolderPathAdapter mFolderPathAdapter = new FolderPathAdapter(this);
+    private TextView mTvActionBarTitle;
+    private ImageView mIvBackArrow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,10 @@ public class MainActivity extends AppCompatActivity implements FolderView, Folde
         rvFolder.setAdapter(mFolderAdapter);
         RecyclerView rvFolderPath = findViewById(R.id.rv_folder_path);
         rvFolderPath.setAdapter(mFolderPathAdapter);
+
+        mTvActionBarTitle = findViewById(R.id.tv_action_bar_title);
+        mIvBackArrow = findViewById(R.id.iv_back_arrow);
+        mIvBackArrow.setOnClickListener(this);
     }
 
     @Override
@@ -58,6 +68,24 @@ public class MainActivity extends AppCompatActivity implements FolderView, Folde
     }
 
     @Override
+    public void setFolderName(String name) {
+        if (name != null) {
+            mTvActionBarTitle.setText(name.toString());
+        } else {
+            mTvActionBarTitle.setText(getString(R.string.app_name));
+        }
+    }
+
+    @Override
+    public void showBackArrow(boolean isShow) {
+        if (isShow) {
+            mIvBackArrow.setVisibility(View.VISIBLE);
+        } else {
+            mIvBackArrow.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
     public void onFolderCLick(Folder folder) {
         mViewModel.updateCurrentFolder(folder);
     }
@@ -68,6 +96,18 @@ public class MainActivity extends AppCompatActivity implements FolderView, Folde
             mViewModel.goToParentFolder();
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onFolderPathClick(Folder folder) {
+        mViewModel.updateCurrentFolder(folder);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == mIvBackArrow.getId()) {
+            onBackPressed();
         }
     }
 }

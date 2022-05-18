@@ -10,4 +10,7 @@ public interface FolderView {
 
     void updateFolderPath(List<Folder> folderList);
 
+    void setFolderName(String name);
+
+    void showBackArrow(boolean isShow);
 }

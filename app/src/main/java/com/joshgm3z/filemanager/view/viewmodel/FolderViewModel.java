@@ -24,10 +24,14 @@ public class FolderViewModel {
 
             List<Folder> folderPathList = mFolderRepository.getFolderPath(mCurrentFolder.getId());
             mView.updateFolderPath(folderPathList);
+            mView.setFolderName(mCurrentFolder.getName());
+            mView.showBackArrow(true);
         } else {
             List<Folder> list = new ArrayList<>();
             list.add(mFolderRepository.getRootFolder());
             mView.updateFolderContent(list);
+            mView.showBackArrow(false);
+            mView.setFolderName(null);
         }
     }
 
