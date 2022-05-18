@@ -1,64 +1,80 @@
 package com.joshgm3z.filemanager.data;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Folder {
-    public int getId() {
-        return mId;
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    private int parentId;
+    private String name;
+
+    public void setChildFolderIdList(List<Integer> childFolderIdList) {
+        this.childFolderIdList = childFolderIdList;
     }
 
-    public void setId(int mId) {
-        this.mId = mId;
+    public void setChildFileDataIdList(List<Integer> childFileDataIdList) {
+        this.childFileDataIdList = childFileDataIdList;
+    }
+
+    private List<Integer> childFolderIdList = new ArrayList<>();
+    private List<Integer> childFileDataIdList = new ArrayList<>();
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getParentId() {
-        return mParentId;
+        return parentId;
     }
 
-    public void setParentId(int mParent) {
-        this.mParentId = mParent;
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
-    public void setName(String mName) {
-        this.mName = mName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public List<Folder> getFolderList() {
-        return mFolderList;
+    public List<Integer> getChildFolderIdList() {
+        return childFolderIdList;
     }
 
     public void addFolder(Folder folder) {
-        this.mFolderList.add(folder);
-        folder.setParentId(mId);
+        this.childFolderIdList.add(folder.getId());
+        folder.setParentId(getId());
     }
 
-    public List<FileData> getFileDataList() {
-        return mFileDataList;
+    public List<Integer> getChildFileDataIdList() {
+        return childFileDataIdList;
     }
 
     public void addFileData(FileData fileData) {
-        this.mFileDataList.add(fileData);
+        this.childFileDataIdList.add(fileData.getId());
     }
-
-    private int mId = 1;
-    private int mParentId = 0;
-    private String mName;
-    private List<Folder> mFolderList = new ArrayList<>();
-    private List<FileData> mFileDataList = new ArrayList<>();
 
     @Override
     public String toString() {
         return "Folder{" +
-                "mId=" + mId +
-                ", mParent=" + mParentId +
-                ", mName='" + mName +
-                ", mFolderList=" + mFolderList +
-                ", mFileItemList=" + mFileDataList +
+                "id=" + id +
+                ", parent_id=" + parentId +
+                ", name='" + name +
+                ", folder_list=" + childFolderIdList +
+                ", file_data_list=" + childFileDataIdList +
                 '}';
     }
 }

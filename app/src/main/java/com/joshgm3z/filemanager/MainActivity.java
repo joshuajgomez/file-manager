@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.joshgm3z.filemanager.data.Folder;
 import com.joshgm3z.filemanager.domain.FolderRepository;
+import com.joshgm3z.filemanager.util.Logger;
 import com.joshgm3z.filemanager.view.adapter.FolderAdapter;
 import com.joshgm3z.filemanager.view.adapter.FolderPathAdapter;
 import com.joshgm3z.filemanager.view.viewmodel.FolderView;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements FolderView {
     }
 
     private void initUI() {
-        mViewModel = new FolderViewModel(new FolderRepository(), this);
+        mViewModel = new FolderViewModel(new FolderRepository(getApplicationContext()), this);
 
         RecyclerView rvFolder = findViewById(R.id.rv_folder);
         rvFolder.setAdapter(mFolderAdapter);
@@ -44,12 +45,14 @@ public class MainActivity extends AppCompatActivity implements FolderView {
     }
 
     @Override
-    public void updateFolderList(List<Folder> folderList) {
+    public void updateFolderContent(List<Folder> folderList) {
+        Logger.a("folderList: " + folderList);
         mFolderAdapter.setFolderList(folderList);
     }
 
     @Override
     public void updateFolderPath(List<Folder> folderList) {
+        Logger.a("folderPathList: " + folderList);
         mFolderPathAdapter.setPathFolderList(folderList);
     }
 }

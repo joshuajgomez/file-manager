@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface FolderView {
 
-    void updateFolderList(List<Folder> folderList);
+    void updateFolderContent(List<Folder> folderList);
 
     void updateFolderPath(List<Folder> folderList);
 
