@@ -2,6 +2,7 @@ package com.joshgm3z.filemanager.view.viewmodel;
 
 import com.joshgm3z.filemanager.data.Folder;
 import com.joshgm3z.filemanager.domain.FolderRepository;
+import com.joshgm3z.filemanager.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +32,14 @@ public class FolderViewModel {
             mView.setFolderName(mCurrentFolder.getName());
             mView.showBackArrow(true);
         } else {
-            List<Folder> list = new ArrayList<>();
-            mView.showContentEmptyText(false);
-            list.add(mFolderRepository.getRootFolder());
-            mView.updateFolderContent(list);
+            Folder rootFolder = mFolderRepository.getRootFolder();
+            Logger.a("rootFolder: " + rootFolder);
+            if (rootFolder != null) {
+                List<Folder> list = new ArrayList<>();
+                mView.showContentEmptyText(false);
+                list.add(rootFolder);
+                mView.updateFolderContent(list);
+            }
             mView.showBackArrow(false);
             mView.setFolderName(null);
         }
@@ -57,6 +62,11 @@ public class FolderViewModel {
 
     public void onNewFolderClick(String folderName) {
         mFolderRepository.createNewFolder(mCurrentFolder, folderName);
+        refreshContent();
+    }
+
+    public void onHomeIconPress() {
+        mCurrentFolder = null;
         refreshContent();
     }
 }
