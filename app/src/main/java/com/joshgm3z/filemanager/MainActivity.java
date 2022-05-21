@@ -4,13 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.joshgm3z.filemanager.data.Folder;
+import com.joshgm3z.filemanager.data.FileData;
+import com.joshgm3z.filemanager.domain.FileAccessManager;
 import com.joshgm3z.filemanager.domain.FolderRepository;
 import com.joshgm3z.filemanager.view.FolderNameDialog;
 import com.joshgm3z.filemanager.view.adapter.FolderAdapter;
@@ -44,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements FolderView,
         setContentView(R.layout.activity_main);
 
         initUI();
+
+        FileAccessManager fam = new FileAccessManager(getApplicationContext());
+        fam.initRoot();
     }
 
     private void initUI() {
@@ -72,14 +77,14 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     }
 
     @Override
-    public void updateFolderContent(List<Folder> folderList) {
-        mFolderAdapter.setFolderList(folderList);
+    public void updateFolderContent(List<FileData> fileDataList) {
+        mFolderAdapter.setFolderList(fileDataList);
     }
 
     @Override
-    public void updateFolderPath(List<Folder> folderList) {
-        mFolderPathAdapter.setPathFolderList(folderList);
-        mRvFolderPath.scrollToPosition(folderList.size() - 1);
+    public void updateFolderPath(List<FileData> fileDataList) {
+        mFolderPathAdapter.setPathFolderList(fileDataList);
+        mRvFolderPath.scrollToPosition(fileDataList.size() - 1);
     }
 
     @Override
@@ -107,8 +112,8 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     }
 
     @Override
-    public void onFolderCLick(Folder folder) {
-        mViewModel.updateCurrentFolder(folder);
+    public void onFolderCLick(FileData fileData) {
+        mViewModel.updateCurrentFolder(fileData);
     }
 
     @Override
@@ -121,8 +126,8 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     }
 
     @Override
-    public void onFolderPathClick(Folder folder) {
-        mViewModel.updateCurrentFolder(folder);
+    public void onFolderPathClick(FileData fileData) {
+        mViewModel.updateCurrentFolder(fileData);
     }
 
     public void onBackArrowPress(View view) {

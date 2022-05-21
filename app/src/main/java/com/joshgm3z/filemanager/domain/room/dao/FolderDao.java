@@ -1,4 +1,4 @@
-package com.joshgm3z.filemanager.domain.room;
+package com.joshgm3z.filemanager.domain.room.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.joshgm3z.filemanager.data.Folder;
+import com.joshgm3z.filemanager.data.FileData;
 
 import java.util.List;
 
@@ -15,20 +15,20 @@ import java.util.List;
 public interface FolderDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long add(Folder folder);
+    long add(FileData fileData);
 
     @Update
-    int update(Folder folder);
+    int update(FileData fileData);
 
     @Query("select * from Folder")
-    List<Folder> getAll();
+    List<FileData> getAll();
 
     @Delete
-    void delete(Folder folder);
+    void delete(FileData fileData);
 
     @Query("select * from Folder where id = :id")
-    Folder getFolder(long id);
+    FileData getFolder(long id);
 
     @Query("select * from Folder where parentId = -1")
-    Folder getRootFolder();
+    FileData getRootFolder();
 }

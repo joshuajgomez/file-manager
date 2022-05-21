@@ -8,13 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.joshgm3z.filemanager.R;
 import com.joshgm3z.filemanager.data.FileData;
-import com.joshgm3z.filemanager.data.Folder;
 
 public class FolderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private TextView mTvFolderName;
     private FolderClickListener mListener;
-    private Folder mFolder;
+    private FileData mFileData;
 
     public FolderViewHolder(@NonNull View itemView, FolderClickListener listener) {
         super(itemView);
@@ -23,9 +22,9 @@ public class FolderViewHolder extends RecyclerView.ViewHolder implements View.On
         itemView.setOnClickListener(this);
     }
 
-    public void setData(Folder folder) {
-        mTvFolderName.setText(folder.getName());
-        mFolder = folder;
+    public void setData(FileData fileData) {
+        mTvFolderName.setText(fileData.getName());
+        mFileData = fileData;
     }
 
     public void setData(FileData fileData) {
@@ -34,10 +33,10 @@ public class FolderViewHolder extends RecyclerView.ViewHolder implements View.On
 
     @Override
     public void onClick(View view) {
-        mListener.onFolderCLick(mFolder);
+        mListener.onFolderCLick(mFileData);
     }
 
     public interface FolderClickListener {
-        void onFolderCLick(Folder folder);
+        void onFolderCLick(FileData fileData);
     }
 }

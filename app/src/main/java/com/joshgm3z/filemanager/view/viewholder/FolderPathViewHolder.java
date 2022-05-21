@@ -7,13 +7,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.joshgm3z.filemanager.R;
-import com.joshgm3z.filemanager.data.Folder;
+import com.joshgm3z.filemanager.data.FileData;
 
 public class FolderPathViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private TextView mTextView;
     private FolderPathClickListener mListener;
-    private Folder mFolder;
+    private FileData mFolder;
 
     public FolderPathViewHolder(@NonNull View itemView, FolderPathClickListener listener) {
         super(itemView);
@@ -22,9 +22,9 @@ public class FolderPathViewHolder extends RecyclerView.ViewHolder implements Vie
         itemView.setOnClickListener(this);
     }
 
-    public void setData(Folder folder) {
-        mFolder = folder;
-        mTextView.setText(folder.getName());
+    public void setData(FileData fileData) {
+        mFolder = fileData;
+        mTextView.setText(fileData.getName());
     }
 
     @Override
@@ -33,6 +33,6 @@ public class FolderPathViewHolder extends RecyclerView.ViewHolder implements Vie
     }
 
     public interface FolderPathClickListener {
-        void onFolderPathClick(Folder folder);
+        void onFolderPathClick(FileData fileData);
     }
 }

@@ -1,14 +1,14 @@
 package com.joshgm3z.filemanager.view.viewmodel;
 
-import com.joshgm3z.filemanager.data.Folder;
+import com.joshgm3z.filemanager.data.FileData;
 
 import java.util.List;
 
 public interface FolderView {
 
-    void updateFolderContent(List<Folder> folderList);
+    void updateFolderContent(List<FileData> fileDataList);
 
-    void updateFolderPath(List<Folder> folderList);
+    void updateFolderPath(List<FileData> fileDataList);
 
     void setFolderName(String name);
 

@@ -1,8 +1,7 @@
 package com.joshgm3z.filemanager.view.viewmodel;
 
-import com.joshgm3z.filemanager.data.Folder;
+import com.joshgm3z.filemanager.data.FileData;
 import com.joshgm3z.filemanager.domain.FolderRepository;
-import com.joshgm3z.filemanager.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,7 @@ public class FolderViewModel {
 
     private FolderRepository mFolderRepository;
     private FolderView mView;
-    private Folder mCurrentFolder = null;
+    private FileData mCurrentFolder = null;
 
     public FolderViewModel(FolderRepository folderRepository, FolderView view) {
         mFolderRepository = folderRepository;
@@ -20,22 +19,23 @@ public class FolderViewModel {
 
     public void refreshContent() {
         if (mCurrentFolder != null) {
-            List<Folder> folderList = mFolderRepository.getFolderContent(mCurrentFolder.getId());
-            if (folderList.isEmpty()) {
+            List<FileData> fileDataList = mFolderRepository.getFolderContent(mCurrentFolder.getId());
+            if (fileDataList.isEmpty()) {
                 mView.showContentEmptyText(true);
             } else {
                 mView.showContentEmptyText(false);
-                mView.updateFolderContent(folderList);
+                mView.updateFolderContent(fileDataList);
             }
-            List<Folder> folderPathList = mFolderRepository.getFolderPath(mCurrentFolder.getId());
+            List<FileData> folderPathList = mFolderRepository.getFolderPath(mCurrentFolder.getId());
             mView.updateFolderPath(folderPathList);
             mView.setFolderName(mCurrentFolder.getName());
             mView.showBackArrow(true);
         } else {
-            Folder rootFolder = mFolderRepository.getRootFolder();
-            Logger.a("rootFolder: " + rootFolder);
+            // load root folder list
+            mFolderRepository.getRootFolderList();
+            FileData rootFolder = mFolderRepository.getRootFolder();
             if (rootFolder != null) {
-                List<Folder> list = new ArrayList<>();
+                List<FileData> list = new ArrayList<>();
                 mView.showContentEmptyText(false);
                 list.add(rootFolder);
                 mView.updateFolderContent(list);
@@ -45,12 +45,12 @@ public class FolderViewModel {
         }
     }
 
-    public void updateCurrentFolder(Folder currentFolder) {
+    public void updateCurrentFolder(FileData currentFolder) {
         mCurrentFolder = currentFolder;
         refreshContent();
     }
 
-    public Folder getCurrentFolder() {
+    public FileData getCurrentFolder() {
         return mCurrentFolder;
     }
 

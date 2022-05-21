@@ -8,14 +8,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.joshgm3z.filemanager.R;
-import com.joshgm3z.filemanager.data.Folder;
+import com.joshgm3z.filemanager.data.FileData;
 import com.joshgm3z.filemanager.view.viewholder.FolderViewHolder;
 
 import java.util.List;
 
 public class FolderAdapter extends RecyclerView.Adapter<FolderViewHolder> {
 
-    private List<Folder> mFolderList;
+    private List<FileData> mFileDataList;
 
     private FolderViewHolder.FolderClickListener mListener;
 
@@ -33,16 +33,16 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull FolderViewHolder holder, int position) {
-        holder.setData(mFolderList.get(position));
+        holder.setData(mFileDataList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mFolderList != null ? mFolderList.size() : 0;
+        return mFileDataList != null ? mFileDataList.size() : 0;
     }
 
-    public void setFolderList(List<Folder> mFolderList) {
-        this.mFolderList = mFolderList;
+    public void setFolderList(List<FileData> mFileDataList) {
+        this.mFileDataList = mFileDataList;
         notifyDataSetChanged();
     }
 }
