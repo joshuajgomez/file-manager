@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fl_options_fragment_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_option_delete"
+        style="@style/itemOptionContainer">
+
+        <ImageView
+            style="@style/itemOptionIcon"
+            android:src="@drawable/ic_delete_dark" />
+
+        <TextView
+            style="@style/itemOptionText"
+            android:text="Delete" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_option_rename"
+        style="@style/itemOptionContainer">
+
+        <ImageView
+            style="@style/itemOptionIcon"
+            android:src="@drawable/ic_pencil_dark" />
+
+        <TextView
+            style="@style/itemOptionText"
+            android:text="Rename" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_option_copy"
+        style="@style/itemOptionContainer">
+
+        <ImageView
+            style="@style/itemOptionIcon"
+            android:src="@drawable/ic_copy_dark" />
+
+        <TextView
+            style="@style/itemOptionText"
+            android:text="Copy" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_option_move"
+        style="@style/itemOptionContainer">
+
+        <ImageView
+            style="@style/itemOptionIcon"
+            android:src="@drawable/ic_move_dark" />
+
+        <TextView
+            style="@style/itemOptionText"
+            android:text="Move" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_option_share"
+        style="@style/itemOptionContainer">
+
+        <ImageView
+            style="@style/itemOptionIcon"
+            android:src="@drawable/ic_share_dark" />
+
+        <TextView
+            style="@style/itemOptionText"
+            android:text="Share" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_option_properties"
+        style="@style/itemOptionContainer">
+
+        <ImageView
+            style="@style/itemOptionIcon"
+            android:src="@drawable/ic_info_dark" />
+
+        <TextView
+            style="@style/itemOptionText"
+            android:text="Properties" />
+
+    </LinearLayout>
+
+</LinearLayout>

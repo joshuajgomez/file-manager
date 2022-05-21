@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.joshgm3z.filemanager.R;
 import com.joshgm3z.filemanager.domain.data.FileData;
 
-public class FolderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class FolderViewHolder extends RecyclerView.ViewHolder {
 
     private TextView mTvFolderName;
     private FolderClickListener mListener;
@@ -19,8 +19,15 @@ public class FolderViewHolder extends RecyclerView.ViewHolder implements View.On
         super(itemView);
         mTvFolderName = itemView.findViewById(R.id.tv_folder_item_name);
         this.mListener = listener;
-        itemView.setOnClickListener(this);
+        itemView.setOnClickListener(this::onClick);
+        itemView.setOnLongClickListener(this::onLongClick);
     }
+
+    private boolean onLongClick(View view) {
+        mListener.onFileLongCLick(mFileData);
+        return false;
+    }
+
 
     public void setData(FileData fileData) {
         mTvFolderName.setText(fileData.getName());
@@ -28,12 +35,12 @@ public class FolderViewHolder extends RecyclerView.ViewHolder implements View.On
     }
 
 
-    @Override
     public void onClick(View view) {
         mListener.onFileCLick(mFileData);
     }
 
     public interface FolderClickListener {
         void onFileCLick(FileData fileData);
+        void onFileLongCLick(FileData fileData);
     }
 }

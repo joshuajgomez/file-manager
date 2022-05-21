@@ -1,6 +1,11 @@
 package com.joshgm3z.filemanager.domain.data;
 
-public class FileData {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class FileData implements Serializable {
 
     private String name;
     private long sourceId;
@@ -68,4 +73,5 @@ public class FileData {
                 ", type=" + type +
                 '}';
     }
+
 }

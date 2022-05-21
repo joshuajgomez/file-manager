@@ -26,4 +26,22 @@ public class Const {
         int FOLDER = 3;
         int FILE = 4;
     }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({
+            Option.DELETE,
+            Option.RENAME,
+            Option.COPY,
+            Option.MOVE,
+            Option.SHARE,
+            Option.PROPERTIES,
+    })
+    public @interface Option {
+        int DELETE = 0;
+        int RENAME = 1;
+        int COPY = 2;
+        int MOVE = 3;
+        int SHARE = 4;
+        int PROPERTIES = 5;
+    }
 }

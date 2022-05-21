@@ -5,6 +5,9 @@
       <map>
         <entry key="..\:/projects/file-manager/app/src/main/res/drawable-anydpi/ic_home.xml" value="0.169" />
         <entry key="..\:/projects/file-manager/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/projects/file-manager/app/src/main/res/layout/fragment_item_list_dialog_list_dialog.xml" value="0.23802083333333332" />
+        <entry key="..\:/projects/file-manager/app/src/main/res/layout/fragment_item_list_dialog_list_dialog_item.xml" value="0.23802083333333332" />
+        <entry key="..\:/projects/file-manager/app/src/main/res/layout/fragment_options.xml" value="0.23802083333333332" />
         <entry key="..\:/projects/file-manager/app/src/main/res/layout/layout_item_path.xml" value="0.23802083333333332" />
         <entry key="..\:/projects/file-manager/app/src/main/res/layout/part_folder_path.xml" value="0.23802083333333332" />
         <entry key="..\:/projects/file-manager/app/src/main/res/layout/part_main_action_bar.xml" value="0.264" />

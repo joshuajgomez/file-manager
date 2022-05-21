@@ -14,4 +14,12 @@ public class Logger {
         Log.println(Log.ASSERT, TAG + className, methodName + " : " + message);
     }
 
+    public static void e(String message) {
+        StackTraceElement element = Thread.currentThread().getStackTrace()[3];
+        String className = element.getClassName();
+        className = className.substring(className.lastIndexOf(".") + 1, className.length());
+        String methodName = element.getMethodName();
+        Log.println(Log.ERROR, TAG + className, methodName + " : " + message);
+    }
+
 }

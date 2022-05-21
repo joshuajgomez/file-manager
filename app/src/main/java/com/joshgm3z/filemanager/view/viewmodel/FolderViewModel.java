@@ -124,4 +124,8 @@ public class FolderViewModel {
         mCurrentPathList.clear();
         refreshContent();
     }
+
+    public void onOptionsClick(int option, FileData fileData) {
+        Logger.a("option: " + option + ", fileData: " + fileData);
+    }
 }

@@ -16,6 +16,7 @@ import com.joshgm3z.filemanager.domain.data.FileData;
 import com.joshgm3z.filemanager.domain.FileAccessManager;
 import com.joshgm3z.filemanager.domain.FolderRepository;
 import com.joshgm3z.filemanager.view.FolderNameDialog;
+import com.joshgm3z.filemanager.view.OptionsBottomSheet;
 import com.joshgm3z.filemanager.view.adapter.FolderAdapter;
 import com.joshgm3z.filemanager.view.adapter.FolderPathAdapter;
 import com.joshgm3z.filemanager.view.viewholder.FolderPathViewHolder;
@@ -143,6 +144,11 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     }
 
     @Override
+    public void onFileLongCLick(FileData fileData) {
+        showOptions(fileData);
+    }
+
+    @Override
     public void onBackPressed() {
         if (mViewModel.getCurrentFolderUrl() != null) {
             mViewModel.goToParentFolder();
@@ -171,5 +177,16 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     @Override
     public void onFolderNameDialogResult(String folderName) {
         mViewModel.onNewFolderClick(folderName);
+    }
+
+    public void showOptions(FileData selectedFileData) {
+        OptionsBottomSheet fragment = new OptionsBottomSheet(this,
+                selectedFileData,
+                this::onOptionsClick);
+        fragment.show();
+    }
+
+    private void onOptionsClick(int option, FileData fileData) {
+        mViewModel.onOptionsClick(option, fileData);
     }
 }
