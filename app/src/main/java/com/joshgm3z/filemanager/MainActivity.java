@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements FolderView,
 
     @Override
     public void onFolderPathClick(FileData fileData) {
-        mViewModel.onFileClick(fileData);
+        mViewModel.onPathClick(fileData);
     }
 
     public void onBackArrowPress(View view) {

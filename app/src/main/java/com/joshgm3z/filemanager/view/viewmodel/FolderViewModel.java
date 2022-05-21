@@ -9,6 +9,7 @@ import com.joshgm3z.filemanager.util.Logger;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class FolderViewModel {
 
@@ -17,6 +18,7 @@ public class FolderViewModel {
     private String mCurrentFolder = null;
     private String mSourceUrl = null;
     private String mCurrentFolderName = null;
+    private Stack<FileData> mCurrentPath = new Stack<>();
 
     public FolderViewModel(FolderRepository folderRepository, FolderView view) {
         mFolderRepository = folderRepository;
@@ -24,7 +26,6 @@ public class FolderViewModel {
     }
 
     public void refreshContent() {
-        Logger.a("mCurrentFolder: " + mCurrentFolder);
         if (mCurrentFolder != null) {
             // load file in folder
             List<FileData> fileDataList = mFolderRepository.getFolderContent(mCurrentFolder);
@@ -34,7 +35,6 @@ public class FolderViewModel {
                 mView.showContentEmptyText(false);
                 mView.updateFolderContent(fileDataList);
             }
-            updateFolderPath();
             mView.showBackArrow(true);
             mView.setFolderName(mCurrentFolderName);
         } else {
@@ -46,10 +46,7 @@ public class FolderViewModel {
             mView.showBackArrow(false);
             mView.setFolderName(null);
         }
-    }
-
-    private void updateFolderPath() {
-//        mView.updateFolderPath(null);
+        mView.updateFolderPath(mCurrentPath);
     }
 
     public void onFileClick(FileData currentFileData) {
@@ -60,6 +57,21 @@ public class FolderViewModel {
             case Const.FileType.ROOT_CLOUD: {
                 mCurrentFolderName = currentFileData.getName();
                 mSourceUrl = currentFileData.getUrl();
+            }
+        }
+        if (currentFileData.getType() != Const.FileType.FILE) {
+            // update folder path
+            mCurrentPath.add(currentFileData);
+        }
+        refreshContent();
+    }
+
+    public void onPathClick(FileData fileData) {
+        mCurrentFolder = fileData.getUrl();
+        if (!mCurrentPath.isEmpty()) {
+            while (!mCurrentPath.lastElement().getUrl()
+                    .equals(fileData.getUrl())) {
+                mCurrentPath.pop();
             }
         }
         refreshContent();
@@ -73,10 +85,12 @@ public class FolderViewModel {
         if (mCurrentFolder.equals(mSourceUrl)) {
             // go to source list
             mCurrentFolder = null;
+            mCurrentPath.clear();
         } else {
             // go to parent folder
             File file = new File(mCurrentFolder);
             mCurrentFolder = file.getParent();
+            mCurrentPath.remove(mCurrentPath.size() - 1);
         }
         Logger.a("mCurrentFolder: " + mCurrentFolder);
         refreshContent();
@@ -89,6 +103,7 @@ public class FolderViewModel {
 
     public void onHomeIconPress() {
         mCurrentFolder = null;
+        mCurrentPath.clear();
         refreshContent();
     }
 }

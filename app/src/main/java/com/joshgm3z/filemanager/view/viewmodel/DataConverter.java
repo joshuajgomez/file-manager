@@ -11,7 +11,6 @@ public class DataConverter {
         List<FileData> fileDataList = new ArrayList<>();
         for (Source source : sourceFolderList) {
             FileData fileData = new FileData();
-            fileData.setId(source.getId());
             fileData.setName(source.getName());
             fileData.setUrl(source.getUrl());
             fileData.setType(source.getType());
