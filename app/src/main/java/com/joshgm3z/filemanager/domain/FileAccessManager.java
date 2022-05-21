@@ -99,4 +99,8 @@ public class FileAccessManager {
         File file = new File(parentFolder + "/" + folderName);
         return file.mkdir();
     }
+
+    public boolean isNameExists(String folder, String name) {
+        return new File(folder + "/" + name).exists();
+    }
 }

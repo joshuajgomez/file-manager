@@ -48,4 +48,8 @@ public class FolderRepository {
     public boolean getWriteState(String path) {
         return mFileAccessManager.getWriteState(path);
     }
+
+    public boolean isNameExists(String folder, String name) {
+        return mFileAccessManager.isNameExists(folder, name);
+    }
 }

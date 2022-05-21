@@ -15,8 +15,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.joshgm3z.filemanager.domain.data.FileData;
 import com.joshgm3z.filemanager.domain.FileAccessManager;
 import com.joshgm3z.filemanager.domain.FolderRepository;
-import com.joshgm3z.filemanager.view.FolderNameDialog;
-import com.joshgm3z.filemanager.view.OptionsBottomSheet;
+import com.joshgm3z.filemanager.view.bottomsheet.NameBottomSheet;
+import com.joshgm3z.filemanager.view.bottomsheet.OptionsBottomSheet;
 import com.joshgm3z.filemanager.view.adapter.FolderAdapter;
 import com.joshgm3z.filemanager.view.adapter.FolderPathAdapter;
 import com.joshgm3z.filemanager.view.viewholder.FolderPathViewHolder;
@@ -28,8 +28,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements FolderView,
         FolderViewHolder.FolderClickListener,
-        FolderPathViewHolder.FolderPathClickListener,
-        FolderNameDialog.FolderNameDialogListener {
+        FolderPathViewHolder.FolderPathClickListener, NameBottomSheet.NameBottomSheetListener {
 
     private FolderViewModel mViewModel;
     private FolderAdapter mFolderAdapter = new FolderAdapter(this);
@@ -145,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements FolderView,
 
     @Override
     public void onFileLongCLick(FileData fileData) {
-        showOptions(fileData);
+        showOptions(fileData.getUrl());
     }
 
     @Override
@@ -167,26 +166,31 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     }
 
     public void onNewFolderPress(View view) {
-        new FolderNameDialog().show(this, this);
+        new NameBottomSheet(this, this)
+                .show();
     }
 
     public void onHomeIconPress(View view) {
         mViewModel.onHomeIconPress();
     }
 
-    @Override
-    public void onFolderNameDialogResult(String folderName) {
-        mViewModel.onNewFolderClick(folderName);
+    public void onNameConfirmed(String name) {
+        mViewModel.onNewFolderClick(name);
     }
 
-    public void showOptions(FileData selectedFileData) {
+    @Override
+    public boolean isNameExists(String name) {
+        return mViewModel.isNameExists(name);
+    }
+
+    public void showOptions(String selectedFileDataUrl) {
         OptionsBottomSheet fragment = new OptionsBottomSheet(this,
-                selectedFileData,
+                selectedFileDataUrl,
                 this::onOptionsClick);
         fragment.show();
     }
 
-    private void onOptionsClick(int option, FileData fileData) {
-        mViewModel.onOptionsClick(option, fileData);
+    private void onOptionsClick(int option, String fileDataUrl) {
+        mViewModel.onOptionsClick(option, fileDataUrl);
     }
 }

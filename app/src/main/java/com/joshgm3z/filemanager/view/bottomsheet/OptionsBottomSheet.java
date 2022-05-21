@@ -1,4 +1,4 @@
-package com.joshgm3z.filemanager.view;
+package com.joshgm3z.filemanager.view.bottomsheet;
 
 import android.content.Context;
 import android.view.View;
@@ -12,12 +12,12 @@ import com.joshgm3z.filemanager.util.Logger;
 public class OptionsBottomSheet {
 
     private OptionFragmentListener mListener;
-    private FileData mSelectedFileData;
+    private String mSelectedFileDataUrl;
     private BottomSheetDialog mBottomSheetDialog;
 
-    public OptionsBottomSheet(Context context, FileData selectedFileData, OptionFragmentListener listener) {
+    public OptionsBottomSheet(Context context, String selectedFileDataUrl, OptionFragmentListener listener) {
         mListener = listener;
-        mSelectedFileData = selectedFileData;
+        mSelectedFileDataUrl = selectedFileDataUrl;
         mBottomSheetDialog = new BottomSheetDialog(context);
         mBottomSheetDialog.setContentView(R.layout.fragment_options);
         mBottomSheetDialog.findViewById(R.id.ll_option_delete).setOnClickListener(this::onOptionClick);
@@ -36,22 +36,22 @@ public class OptionsBottomSheet {
         if (mListener != null) {
             switch (view.getId()) {
                 case R.id.ll_option_delete:
-                    mListener.onOptionClick(Const.Option.DELETE, mSelectedFileData);
+                    mListener.onOptionClick(Const.Option.DELETE, mSelectedFileDataUrl);
                     break;
                 case R.id.ll_option_rename:
-                    mListener.onOptionClick(Const.Option.RENAME, mSelectedFileData);
+                    mListener.onOptionClick(Const.Option.RENAME, mSelectedFileDataUrl);
                     break;
                 case R.id.ll_option_copy:
-                    mListener.onOptionClick(Const.Option.COPY, mSelectedFileData);
+                    mListener.onOptionClick(Const.Option.COPY, mSelectedFileDataUrl);
                     break;
                 case R.id.ll_option_move:
-                    mListener.onOptionClick(Const.Option.MOVE, mSelectedFileData);
+                    mListener.onOptionClick(Const.Option.MOVE, mSelectedFileDataUrl);
                     break;
                 case R.id.ll_option_share:
-                    mListener.onOptionClick(Const.Option.SHARE, mSelectedFileData);
+                    mListener.onOptionClick(Const.Option.SHARE, mSelectedFileDataUrl);
                     break;
                 case R.id.ll_option_properties:
-                    mListener.onOptionClick(Const.Option.PROPERTIES, mSelectedFileData);
+                    mListener.onOptionClick(Const.Option.PROPERTIES, mSelectedFileDataUrl);
                     break;
             }
         } else {
@@ -61,6 +61,6 @@ public class OptionsBottomSheet {
     }
 
     public interface OptionFragmentListener {
-        void onOptionClick(@Const.Option int option, FileData selectedFileData);
+        void onOptionClick(@Const.Option int option, String selectedFileDataUrl);
     }
 }

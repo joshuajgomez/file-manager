@@ -125,7 +125,11 @@ public class FolderViewModel {
         refreshContent();
     }
 
-    public void onOptionsClick(int option, FileData fileData) {
-        Logger.a("option: " + option + ", fileData: " + fileData);
+    public void onOptionsClick(int option, String fileDataUrl) {
+        Logger.a("option: " + option + ", fileDataUrl: " + fileDataUrl);
+    }
+
+    public boolean isNameExists(String name) {
+        return mFolderRepository.isNameExists(mCurrentFolderUrl, name);
     }
 }
