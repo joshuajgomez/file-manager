@@ -1,6 +1,6 @@
 package com.joshgm3z.filemanager.view.viewmodel;
 
-import com.joshgm3z.filemanager.data.FileData;
+import com.joshgm3z.filemanager.domain.data.FileData;
 
 import java.util.List;
 

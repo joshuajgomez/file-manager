@@ -3,15 +3,15 @@ package com.joshgm3z.filemanager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.joshgm3z.filemanager.data.FileData;
+import com.joshgm3z.filemanager.domain.data.FileData;
 import com.joshgm3z.filemanager.domain.FileAccessManager;
 import com.joshgm3z.filemanager.domain.FolderRepository;
 import com.joshgm3z.filemanager.view.FolderNameDialog;
@@ -48,11 +48,14 @@ public class MainActivity extends AppCompatActivity implements FolderView,
         initUI();
 
         FileAccessManager fam = new FileAccessManager(getApplicationContext());
-        fam.initRoot();
+        fam.initRootExtStorage();
     }
 
     private void initUI() {
-        mViewModel = new FolderViewModel(new FolderRepository(getApplicationContext()), this);
+        Context context = getApplicationContext();
+        mViewModel = new FolderViewModel(
+                new FolderRepository(context, new FileAccessManager(context)),
+                this);
 
         mRvFolderList = findViewById(R.id.rv_folder);
         mRvFolderList.setAdapter(mFolderAdapter);
@@ -112,8 +115,8 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     }
 
     @Override
-    public void onFolderCLick(FileData fileData) {
-        mViewModel.updateCurrentFolder(fileData);
+    public void onFileCLick(FileData fileData) {
+        mViewModel.onFileClick(fileData);
     }
 
     @Override
@@ -127,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements FolderView,
 
     @Override
     public void onFolderPathClick(FileData fileData) {
-        mViewModel.updateCurrentFolder(fileData);
+        mViewModel.onFileClick(fileData);
     }
 
     public void onBackArrowPress(View view) {

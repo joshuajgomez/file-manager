@@ -2,12 +2,10 @@ package com.joshgm3z.filemanager.domain;
 
 import android.content.Context;
 
-import com.joshgm3z.filemanager.data.FileData;
-import com.joshgm3z.filemanager.data.RootFolder;
-import com.joshgm3z.filemanager.domain.room.dao.FolderDao;
-import com.joshgm3z.filemanager.domain.room.FolderDatabase;
-import com.joshgm3z.filemanager.domain.room.dao.RootFolderDao;
-import com.joshgm3z.filemanager.util.Const;
+import com.joshgm3z.filemanager.domain.data.FileData;
+import com.joshgm3z.filemanager.domain.data.Source;
+import com.joshgm3z.filemanager.domain.room.AppDatabase;
+import com.joshgm3z.filemanager.domain.room.dao.SourceDao;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,63 +13,44 @@ import java.util.List;
 
 public class FolderRepository {
 
-    private Context context;
-    private FolderDao mFolderDao;
-    private RootFolderDao mRootFolderDao;
+    private SourceDao mSourceDao;
+    private FileAccessManager mFileAccessManager;
 
-    public FolderRepository(Context context) {
-        this.context = context;
+    public FolderRepository(Context context, FileAccessManager fileAccessManager) {
+        mFileAccessManager = fileAccessManager;
 //        FakeData.addFakeFolderData(context);
-        FolderDatabase instance = FolderDatabase.getInstance(context);
-        mFolderDao = instance.folderDao();
-        mRootFolderDao = instance.rootFolderDao();
+        mSourceDao = AppDatabase.getInstance(context).sourceDao();
+        mFileAccessManager.initRootExtStorage();
+        mFileAccessManager.initRootInternalStorage();
     }
 
-    public void addFolder(FileData fileData) {
-        mFolderDao.add(fileData);
+    public void addSource(String url, int type, String name) {
+        mSourceDao.add(new Source());
     }
 
-    public List<FileData> getFolderContent(long folderId) {
-        FileData fileData = mFolderDao.getFolder(folderId);
-        List<Long> folderIdList = fileData.getChildFolderIdList();
-        List<FileData> fileDataList = new ArrayList<>();
-        for (Long id : folderIdList) {
-            fileDataList.add(mFolderDao.getFolder(id));
-        }
-        return fileDataList;
+    public List<FileData> getFolderContent(String mCurrentFolder) {
+        return mFileAccessManager.getFolderContent(mCurrentFolder);
     }
 
     public List<FileData> getFolderPath(long folderId) {
-        FileData fileData = mFolderDao.getFolder(folderId);
-        List<FileData> folderPathList = new ArrayList<>();
-        folderPathList.add(fileData);
-        while (fileData.getParentId() != Const.INVALID_ID) {
-            fileData = mFolderDao.getFolder(fileData.getParentId());
-            folderPathList.add(fileData);
-        }
-        Collections.reverse(folderPathList);
-        return folderPathList;
+//        FileData fileData = mSourceDao.getFileData(folderId);
+//        List<FileData> folderPathList = new ArrayList<>();
+//        folderPathList.add(fileData);
+//
+//        Collections.reverse(folderPathList);
+        return new ArrayList<>();
     }
 
-    public FileData getRootFolder() {
-        return mFolderDao.getRootFolder();
+    public void createNewFolder(String parentFolder, String folderName) {
+
     }
 
-    public FileData getFolder(long id) {
-        return mFolderDao.getFolder(id);
-    }
-
-    public void createNewFolder(FileData parentFolder, String folderName) {
-        FileData fileData = new FileData();
-        fileData.setName(folderName);
-        fileData.setParentId(parentFolder.getId());
-        long folderId = mFolderDao.add(fileData);
-        parentFolder.addFolder(folderId);
-        mFolderDao.update(parentFolder);
-    }
-
-    public List<RootFolder> getRootFolderList() {
-        List<RootFolder> rootFolderList = mRootFolderDao.getAll();
-        return rootFolderList;
+    public List<Source> getSourceList() {
+        List<Source> sourceList = mSourceDao.getAll();
+        Source extSource = mFileAccessManager.initRootExtStorage();
+        Source intSource = mFileAccessManager.initRootInternalStorage();
+        sourceList.add(extSource);
+        sourceList.add(intSource);
+        return sourceList;
     }
 }

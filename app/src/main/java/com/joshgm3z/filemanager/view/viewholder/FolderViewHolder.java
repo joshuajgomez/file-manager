@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.joshgm3z.filemanager.R;
-import com.joshgm3z.filemanager.data.FileData;
+import com.joshgm3z.filemanager.domain.data.FileData;
 
 public class FolderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -27,16 +27,13 @@ public class FolderViewHolder extends RecyclerView.ViewHolder implements View.On
         mFileData = fileData;
     }
 
-    public void setData(FileData fileData) {
-
-    }
 
     @Override
     public void onClick(View view) {
-        mListener.onFolderCLick(mFileData);
+        mListener.onFileCLick(mFileData);
     }
 
     public interface FolderClickListener {
-        void onFolderCLick(FileData fileData);
+        void onFileCLick(FileData fileData);
     }
 }

@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.joshgm3z.filemanager.R;
-import com.joshgm3z.filemanager.data.FileData;
+import com.joshgm3z.filemanager.domain.data.FileData;
 
 public class FolderPathViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
