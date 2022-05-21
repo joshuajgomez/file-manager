@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     private RecyclerView mRvFolderList;
     private RecyclerView mRvFolderPath;
     private LinearLayout mLlAppIcon;
+    private RelativeLayout mRlPathContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,9 @@ public class MainActivity extends AppCompatActivity implements FolderView,
         mIvNewFolder = findViewById(R.id.iv_new_folder);
         mIvNewFolder.setOnClickListener(this::onNewFolderPress);
         mLlAppIcon = findViewById(R.id.ll_app_icon);
+        mLlAppIcon = findViewById(R.id.ll_app_icon);
         mLlAppIcon.setOnClickListener(this::onHomeIconPress);
+        mRlPathContainer = findViewById(R.id.rl_path_container);
     }
 
     @Override
@@ -86,8 +89,13 @@ public class MainActivity extends AppCompatActivity implements FolderView,
 
     @Override
     public void updateFolderPath(List<FileData> fileDataList) {
-        mFolderPathAdapter.setPathFolderList(fileDataList);
-        mRvFolderPath.scrollToPosition(fileDataList.size() - 1);
+        if (fileDataList != null && !fileDataList.isEmpty()) {
+            mRlPathContainer.setVisibility(View.VISIBLE);
+            mFolderPathAdapter.setPathFolderList(fileDataList);
+            mRvFolderPath.scrollToPosition(fileDataList.size() - 1);
+        } else {
+            mRlPathContainer.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -121,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements FolderView,
 
     @Override
     public void onBackPressed() {
-        if (mViewModel.getCurrentFolder() != null) {
+        if (mViewModel.getCurrentFolderUrl() != null) {
             mViewModel.goToParentFolder();
         } else {
             super.onBackPressed();

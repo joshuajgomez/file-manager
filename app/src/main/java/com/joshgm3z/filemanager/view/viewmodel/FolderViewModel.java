@@ -7,7 +7,6 @@ import com.joshgm3z.filemanager.util.Const;
 import com.joshgm3z.filemanager.util.Logger;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -15,10 +14,10 @@ public class FolderViewModel {
 
     private FolderRepository mFolderRepository;
     private FolderView mView;
-    private String mCurrentFolder = null;
+    private String mCurrentFolderUrl = null;
     private String mSourceUrl = null;
     private String mCurrentFolderName = null;
-    private Stack<FileData> mCurrentPath = new Stack<>();
+    private Stack<FileData> mCurrentPathList = new Stack<>();
 
     public FolderViewModel(FolderRepository folderRepository, FolderView view) {
         mFolderRepository = folderRepository;
@@ -26,9 +25,9 @@ public class FolderViewModel {
     }
 
     public void refreshContent() {
-        if (mCurrentFolder != null) {
+        if (mCurrentFolderUrl != null) {
             // load file in folder
-            List<FileData> fileDataList = mFolderRepository.getFolderContent(mCurrentFolder);
+            List<FileData> fileDataList = mFolderRepository.getFolderContent(mCurrentFolderUrl);
             if (fileDataList.isEmpty()) {
                 mView.showContentEmptyText(true);
             } else {
@@ -37,6 +36,7 @@ public class FolderViewModel {
             }
             mView.showBackArrow(true);
             mView.setFolderName(mCurrentFolderName);
+            mView.updateFolderPath(mCurrentPathList);
         } else {
             // load source list
             List<Source> sourceFolderList = mFolderRepository.getSourceList();
@@ -45,12 +45,12 @@ public class FolderViewModel {
             mView.updateFolderContent(fileDataList);
             mView.showBackArrow(false);
             mView.setFolderName(null);
+            mView.updateFolderPath(null);
         }
-        mView.updateFolderPath(mCurrentPath);
     }
 
     public void onFileClick(FileData currentFileData) {
-        mCurrentFolder = currentFileData.getUrl();
+        mCurrentFolderUrl = currentFileData.getUrl();
         switch (currentFileData.getType()) {
             case Const.FileType.ROOT_EXT_STORAGE:
             case Const.FileType.ROOT_INT_STORAGE:
@@ -61,49 +61,49 @@ public class FolderViewModel {
         }
         if (currentFileData.getType() != Const.FileType.FILE) {
             // update folder path
-            mCurrentPath.add(currentFileData);
+            mCurrentPathList.add(currentFileData);
         }
         refreshContent();
     }
 
     public void onPathClick(FileData fileData) {
-        mCurrentFolder = fileData.getUrl();
-        if (!mCurrentPath.isEmpty()) {
-            while (!mCurrentPath.lastElement().getUrl()
+        mCurrentFolderUrl = fileData.getUrl();
+        if (!mCurrentPathList.isEmpty()) {
+            while (!mCurrentPathList.lastElement().getUrl()
                     .equals(fileData.getUrl())) {
-                mCurrentPath.pop();
+                mCurrentPathList.pop();
             }
         }
         refreshContent();
     }
 
-    public String getCurrentFolder() {
-        return mCurrentFolder;
+    public String getCurrentFolderUrl() {
+        return mCurrentFolderUrl;
     }
 
     public void goToParentFolder() {
-        if (mCurrentFolder.equals(mSourceUrl)) {
+        if (mCurrentFolderUrl.equals(mSourceUrl)) {
             // go to source list
-            mCurrentFolder = null;
-            mCurrentPath.clear();
+            mCurrentFolderUrl = null;
+            mCurrentPathList.clear();
         } else {
             // go to parent folder
-            File file = new File(mCurrentFolder);
-            mCurrentFolder = file.getParent();
-            mCurrentPath.remove(mCurrentPath.size() - 1);
+            File file = new File(mCurrentFolderUrl);
+            mCurrentFolderUrl = file.getParent();
+            mCurrentPathList.remove(mCurrentPathList.size() - 1);
         }
-        Logger.a("mCurrentFolder: " + mCurrentFolder);
+        Logger.a("mCurrentFolder: " + mCurrentFolderUrl);
         refreshContent();
     }
 
     public void onNewFolderClick(String folderName) {
-        mFolderRepository.createNewFolder(mCurrentFolder, folderName);
+        mFolderRepository.createNewFolder(mCurrentFolderUrl, folderName);
         refreshContent();
     }
 
     public void onHomeIconPress() {
-        mCurrentFolder = null;
-        mCurrentPath.clear();
+        mCurrentFolderUrl = null;
+        mCurrentPathList.clear();
         refreshContent();
     }
 }
