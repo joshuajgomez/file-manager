@@ -44,7 +44,7 @@ public class FileAccessManager {
     }
 
     public Source initRootExtStorage() {
-            Source source = new Source();
+        Source source = new Source();
         if (!isRootExtStorageAdded()) {
             File extStorage = Environment.getExternalStorageDirectory();
             source.setName(Const.NAME_EXT_STORAGE);
@@ -87,5 +87,16 @@ public class FileAccessManager {
             }
         }
         return fileDataList;
+    }
+
+    public boolean getWriteState(String path) {
+        Logger.a("path: " + path);
+        return Environment.MEDIA_MOUNTED.equals(
+                Environment.getExternalStorageState(new File(path)));
+    }
+
+    public boolean createNewFolder(String parentFolder, String folderName) {
+        File file = new File(parentFolder + "/" + folderName);
+        return file.mkdir();
     }
 }

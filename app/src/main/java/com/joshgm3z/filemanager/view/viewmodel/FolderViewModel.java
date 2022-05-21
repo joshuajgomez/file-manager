@@ -47,6 +47,18 @@ public class FolderViewModel {
             mView.setFolderName(null);
             mView.updateFolderPath(null);
         }
+        checkWritePermission();
+    }
+
+    private void checkWritePermission() {
+        if (mCurrentFolderUrl != null
+                && mFolderRepository.getWriteState(mCurrentFolderUrl)
+                && mCurrentPathList != null
+                && !mCurrentPathList.isEmpty()) {
+            mView.showNewFolderOption(true);
+        } else {
+            mView.showNewFolderOption(false);
+        }
     }
 
     public void onFileClick(FileData currentFileData) {
@@ -97,7 +109,13 @@ public class FolderViewModel {
     }
 
     public void onNewFolderClick(String folderName) {
-        mFolderRepository.createNewFolder(mCurrentFolderUrl, folderName);
+        if (mFolderRepository.createNewFolder(mCurrentFolderUrl, folderName)) {
+            // new folder created
+            mView.showMessage(folderName + " created");
+        } else {
+            // not created
+            mView.showMessage("Unable to create new folder");
+        }
         refreshContent();
     }
 

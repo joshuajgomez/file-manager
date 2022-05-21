@@ -15,4 +15,8 @@ public interface FolderView {
     void showBackArrow(boolean isShow);
 
     void showContentEmptyText(boolean isVisible);
+
+    void showNewFolderOption(boolean isShow);
+
+    void showMessage(String message);
 }

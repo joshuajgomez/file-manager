@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.joshgm3z.filemanager.domain.data.FileData;
 import com.joshgm3z.filemanager.domain.FileAccessManager;
 import com.joshgm3z.filemanager.domain.FolderRepository;
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements FolderView,
         mLlAppIcon = findViewById(R.id.ll_app_icon);
         mLlAppIcon.setOnClickListener(this::onHomeIconPress);
         mRlPathContainer = findViewById(R.id.rl_path_container);
+
     }
 
     @Override
@@ -90,10 +92,12 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     @Override
     public void updateFolderPath(List<FileData> fileDataList) {
         if (fileDataList != null && !fileDataList.isEmpty()) {
+            // inside a folder
             mRlPathContainer.setVisibility(View.VISIBLE);
             mFolderPathAdapter.setPathFolderList(fileDataList);
             mRvFolderPath.scrollToPosition(fileDataList.size() - 1);
         } else {
+            // home
             mRlPathContainer.setVisibility(View.GONE);
         }
     }
@@ -123,6 +127,17 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     }
 
     @Override
+    public void showNewFolderOption(boolean isShow) {
+        mIvNewFolder.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar snackbar = Snackbar.make(findViewById(R.id.ll_main_container), message, Snackbar.LENGTH_SHORT);
+        snackbar.show();
+    }
+
+    @Override
     public void onFileCLick(FileData fileData) {
         mViewModel.onFileClick(fileData);
     }
@@ -148,7 +163,6 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     public void onNewFolderPress(View view) {
         new FolderNameDialog().show(this, this);
     }
-
 
     public void onHomeIconPress(View view) {
         mViewModel.onHomeIconPress();

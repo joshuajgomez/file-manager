@@ -32,17 +32,8 @@ public class FolderRepository {
         return mFileAccessManager.getFolderContent(mCurrentFolder);
     }
 
-    public List<FileData> getFolderPath(long folderId) {
-//        FileData fileData = mSourceDao.getFileData(folderId);
-//        List<FileData> folderPathList = new ArrayList<>();
-//        folderPathList.add(fileData);
-//
-//        Collections.reverse(folderPathList);
-        return new ArrayList<>();
-    }
-
-    public void createNewFolder(String parentFolder, String folderName) {
-
+    public boolean createNewFolder(String parentFolder, String folderName) {
+        return mFileAccessManager.createNewFolder(parentFolder, folderName);
     }
 
     public List<Source> getSourceList() {
@@ -52,5 +43,9 @@ public class FolderRepository {
         sourceList.add(extSource);
         sourceList.add(intSource);
         return sourceList;
+    }
+
+    public boolean getWriteState(String path) {
+        return mFileAccessManager.getWriteState(path);
     }
 }
