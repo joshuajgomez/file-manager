@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="?attr/colorPrimaryDark"
+    android:background="@color/white"
     android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
 
     <ImageView
@@ -13,24 +13,32 @@
         android:layout_height="60dp"
         android:background="?attr/selectableItemBackground"
         android:padding="13dp"
-        android:visibility="gone"
-        android:src="@drawable/ic_arrow_left_light" />
-
-    <ImageView
-        android:layout_toLeftOf="@+id/tv_action_bar_title"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@mipmap/ic_app_icon1_foreground" />
+        android:src="@drawable/ic_arrow_left_dark"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_action_bar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/iv_back_arrow"
+        android:fontFamily="@font/riffic_free_bold"
         android:text="@string/app_name"
-        android:textColor="?attr/colorOnPrimary"
-        android:textSize="18sp" />
+        android:textColor="@color/purple_dark"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tv_action_bar_source"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/tv_action_bar_title"
+        android:text="sdcard"
+        android:textStyle="italic"
+        android:textColor="@color/gray"
+        android:textSize="17sp" />
 
     <ImageView
         android:id="@+id/iv_new_folder"
@@ -38,6 +46,6 @@
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:padding="13dp"
-        android:src="@drawable/ic_new_folder_light" />
+        android:padding="15dp"
+        android:src="@drawable/ic_hnew_folder_dark" />
 </RelativeLayout>

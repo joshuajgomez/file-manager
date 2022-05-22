@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     private FolderViewModel mViewModel;
     private FolderAdapter mFolderAdapter = new FolderAdapter(this);
     private FolderPathAdapter mFolderPathAdapter = new FolderPathAdapter(this);
-    private TextView mTvActionBarTitle;
     private ImageView mIvBackArrow;
     private ImageView mIvNewFolder;
     private RelativeLayout mRlNoContent;
@@ -41,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     private RecyclerView mRvFolderPath;
     private LinearLayout mLlAppIcon;
     private RelativeLayout mRlPathContainer;
+    private TextView mTvActionSourceName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements FolderView,
         mRvFolderPath = findViewById(R.id.rv_folder_path);
         mRvFolderPath.setAdapter(mFolderPathAdapter);
 
-        mTvActionBarTitle = findViewById(R.id.tv_action_bar_title);
         mIvBackArrow = findViewById(R.id.iv_back_arrow);
         mIvBackArrow.setOnClickListener(this::onBackArrowPress);
 
@@ -75,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements FolderView,
         mLlAppIcon = findViewById(R.id.ll_app_icon);
         mLlAppIcon.setOnClickListener(this::onHomeIconPress);
         mRlPathContainer = findViewById(R.id.rl_path_container);
+        mTvActionSourceName = findViewById(R.id.tv_action_bar_source);
 
     }
 
@@ -105,9 +105,11 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     @Override
     public void setFolderName(String name) {
         if (name != null) {
-            mTvActionBarTitle.setText(name.toString());
+            mTvActionSourceName.setText("~" + name.toString());
+            mTvActionSourceName.setVisibility(View.VISIBLE);
         } else {
-            mTvActionBarTitle.setText(getString(R.string.app_name));
+            mTvActionSourceName.setText("");
+            mTvActionSourceName.setVisibility(View.INVISIBLE);
         }
     }
 
