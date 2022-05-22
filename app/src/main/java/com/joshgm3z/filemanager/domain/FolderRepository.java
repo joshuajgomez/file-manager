@@ -52,4 +52,8 @@ public class FolderRepository {
     public boolean isNameExists(String folder, String name) {
         return mFileAccessManager.isNameExists(folder, name);
     }
+
+    public boolean rename(String selectedFile, String name) {
+        return mFileAccessManager.renameFile(selectedFile, name);
+    }
 }

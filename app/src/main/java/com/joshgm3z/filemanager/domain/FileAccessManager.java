@@ -103,4 +103,9 @@ public class FileAccessManager {
     public boolean isNameExists(String folder, String name) {
         return new File(folder + "/" + name).exists();
     }
+
+    public boolean renameFile(String selectedFile, String name) {
+        File file = new File(selectedFile);
+        return file.renameTo(new File(file.getParent() + "/" + name));
+    }
 }

@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.joshgm3z.filemanager.domain.data.FileData;
 import com.joshgm3z.filemanager.domain.FileAccessManager;
 import com.joshgm3z.filemanager.domain.FolderRepository;
+import com.joshgm3z.filemanager.util.Const;
 import com.joshgm3z.filemanager.view.bottomsheet.NameBottomSheet;
 import com.joshgm3z.filemanager.view.bottomsheet.OptionsBottomSheet;
 import com.joshgm3z.filemanager.view.adapter.FolderAdapter;
@@ -181,6 +182,11 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     }
 
     @Override
+    public void onRenameConfirmed(String selectedFile, String name) {
+        mViewModel.onRenameClick(selectedFile, name);
+    }
+
+    @Override
     public boolean isNameExists(String name) {
         return mViewModel.isNameExists(name);
     }
@@ -193,6 +199,12 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     }
 
     private void onOptionsClick(int option, String fileDataUrl) {
-        mViewModel.onOptionsClick(option, fileDataUrl);
+        if (option == Const.Option.RENAME) {
+            NameBottomSheet nameBottomSheet = new NameBottomSheet(this, this);
+            nameBottomSheet.setRenameDetails(fileDataUrl, mViewModel.getFileName(fileDataUrl));
+            nameBottomSheet.show();
+        } else {
+            mViewModel.onOptionsClick(option, fileDataUrl);
+        }
     }
 }

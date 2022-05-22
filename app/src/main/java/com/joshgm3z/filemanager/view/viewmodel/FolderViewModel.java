@@ -132,4 +132,19 @@ public class FolderViewModel {
     public boolean isNameExists(String name) {
         return mFolderRepository.isNameExists(mCurrentFolderUrl, name);
     }
+
+    public void onRenameClick(String selectedFile, String name) {
+        if (mFolderRepository.rename(selectedFile, name)) {
+            // folder renames
+            mView.showMessage(name + " renamed");
+        } else {
+            // rename failed
+            mView.showMessage("Unable to rename folder");
+        }
+        refreshContent();
+    }
+
+    public String getFileName(String fileDataUrl) {
+        return new File(fileDataUrl).getName();
+    }
 }
