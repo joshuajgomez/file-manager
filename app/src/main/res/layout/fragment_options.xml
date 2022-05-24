@@ -8,20 +8,6 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/ll_option_delete"
-        style="@style/itemOptionContainer">
-
-        <ImageView
-            style="@style/itemOptionIcon"
-            android:src="@drawable/ic_delete_dark" />
-
-        <TextView
-            style="@style/itemOptionText"
-            android:text="Delete" />
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/ll_option_rename"
         style="@style/itemOptionContainer">
 
@@ -74,6 +60,20 @@
         <TextView
             style="@style/itemOptionText"
             android:text="Share" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_option_delete"
+        style="@style/itemOptionContainer">
+
+        <ImageView
+            style="@style/itemOptionIcon"
+            android:src="@drawable/ic_delete_dark" />
+
+        <TextView
+            style="@style/itemOptionText"
+            android:text="Delete" />
 
     </LinearLayout>
 

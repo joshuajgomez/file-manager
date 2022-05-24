@@ -28,7 +28,12 @@ public class FolderViewHolder extends RecyclerView.ViewHolder {
     }
 
     private boolean onLongClick(View view) {
-        mListener.onFileLongCLick(mFileData);
+        if (mFileData.getType() != Const.FileType.ROOT_EXT_STORAGE
+                && mFileData.getType() != Const.FileType.ROOT_INT_STORAGE) {
+            mListener.onFileLongCLick(mFileData);
+        } else {
+            // disable click for source folders
+        }
         return false;
     }
 

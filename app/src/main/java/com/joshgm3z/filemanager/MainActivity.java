@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements FolderView,
 
     @Override
     public void onFileLongCLick(FileData fileData) {
-        showOptions(fileData.getUrl());
+        showOptions(fileData);
     }
 
     @Override
@@ -203,9 +203,10 @@ public class MainActivity extends AppCompatActivity implements FolderView,
         return mViewModel.isNameExists(name);
     }
 
-    public void showOptions(String selectedFileDataUrl) {
+    public void showOptions(FileData selectedFileData) {
         OptionsBottomSheet fragment = new OptionsBottomSheet(this,
-                selectedFileDataUrl,
+                selectedFileData.getUrl(),
+                selectedFileData.getType(),
                 this::onOptionsClick);
         fragment.show();
     }
