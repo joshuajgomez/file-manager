@@ -8,9 +8,16 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <include layout="@layout/part_main_action_bar" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
-    <include layout="@layout/part_folder_path" />
+        <include layout="@layout/part_main_action_bar" />
+
+        <include layout="@layout/part_folder_path" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_folder"
