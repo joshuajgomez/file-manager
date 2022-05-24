@@ -18,6 +18,7 @@ public class FolderViewModel {
     private String mSourceUrl = null;
     private String mCurrentFolderName = null;
     private Stack<FileData> mCurrentPathList = new Stack<>();
+    private String mCopiedFilePath;
 
     public FolderViewModel(FolderRepository folderRepository, FolderView view) {
         mFolderRepository = folderRepository;
@@ -145,6 +146,27 @@ public class FolderViewModel {
     }
 
     public String getFileName(String fileDataUrl) {
-        return new File(fileDataUrl).getName();
+        return mFolderRepository.getFileName(fileDataUrl);
+    }
+
+    public void onCopyClick(String fileDataUrl) {
+        mCopiedFilePath = fileDataUrl;
+        mView.showPasteIcon(true);
+        mView.showMessage(mFolderRepository.getFileName(fileDataUrl) + " copied");
+    }
+
+    public void onPasteClick() {
+        if (mCopiedFilePath != null) {
+            if (mFolderRepository.copyFile(mCopiedFilePath, mCurrentFolderUrl)) {
+                mView.showMessage(mFolderRepository.getFileName(mCopiedFilePath) + " copied to current folder");
+                mView.showPasteIcon(false);
+                refreshContent();
+            } else {
+                mView.showMessage(mFolderRepository.getFileName("Unable to copy file"));
+            }
+        } else {
+            mView.showMessage("No file copied");
+            mView.showPasteIcon(false);
+        }
     }
 }

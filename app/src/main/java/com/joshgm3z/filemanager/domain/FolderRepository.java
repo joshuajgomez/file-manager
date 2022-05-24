@@ -7,6 +7,7 @@ import com.joshgm3z.filemanager.domain.data.Source;
 import com.joshgm3z.filemanager.domain.room.AppDatabase;
 import com.joshgm3z.filemanager.domain.room.dao.SourceDao;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -55,5 +56,13 @@ public class FolderRepository {
 
     public boolean rename(String selectedFile, String name) {
         return mFileAccessManager.renameFile(selectedFile, name);
+    }
+
+    public String getFileName(String fileDataUrl) {
+        return mFileAccessManager.getFileName(fileDataUrl);
+    }
+
+    public boolean copyFile(String inputFilePath, String outputFilePath) {
+        return mFileAccessManager.copyFile(inputFilePath, outputFilePath);
     }
 }

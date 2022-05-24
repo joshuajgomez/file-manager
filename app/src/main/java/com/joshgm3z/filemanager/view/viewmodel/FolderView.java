@@ -19,4 +19,6 @@ public interface FolderView {
     void showNewFolderOption(boolean isShow);
 
     void showMessage(String message);
+
+    void showPasteIcon(boolean isShow);
 }

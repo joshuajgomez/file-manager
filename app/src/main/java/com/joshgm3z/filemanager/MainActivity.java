@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     private LinearLayout mLlAppIcon;
     private RelativeLayout mRlPathContainer;
     private TextView mTvActionSourceName;
+    private ImageView mIvPasteIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,13 @@ public class MainActivity extends AppCompatActivity implements FolderView,
         mLlAppIcon.setOnClickListener(this::onHomeIconPress);
         mRlPathContainer = findViewById(R.id.rl_path_container);
         mTvActionSourceName = findViewById(R.id.tv_action_bar_source);
+        mIvPasteIcon = findViewById(R.id.iv_paste);
+        mIvPasteIcon.setVisibility(View.GONE);
+        mIvPasteIcon.setOnClickListener(this::onPasteClick);
+    }
 
+    private void onPasteClick(View view) {
+        mViewModel.onPasteClick();
     }
 
     @Override
@@ -138,6 +145,11 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     public void showMessage(String message) {
         Snackbar snackbar = Snackbar.make(findViewById(R.id.ll_main_container), message, Snackbar.LENGTH_SHORT);
         snackbar.show();
+    }
+
+    @Override
+    public void showPasteIcon(boolean isShow) {
+        mIvPasteIcon.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -203,6 +215,8 @@ public class MainActivity extends AppCompatActivity implements FolderView,
             NameBottomSheet nameBottomSheet = new NameBottomSheet(this, this);
             nameBottomSheet.setRenameDetails(fileDataUrl, mViewModel.getFileName(fileDataUrl));
             nameBottomSheet.show();
+        } else if (option == Const.Option.COPY) {
+            mViewModel.onCopyClick(fileDataUrl);
         } else {
             mViewModel.onOptionsClick(option, fileDataUrl);
         }
