@@ -1,6 +1,7 @@
 package com.joshgm3z.filemanager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.joshgm3z.filemanager.domain.data.FileData;
 import com.joshgm3z.filemanager.domain.FileAccessManager;
@@ -128,6 +130,16 @@ public class MainActivity extends AppCompatActivity implements FolderView,
     public void showContentEmptyText(boolean isVisible) {
         mRlNoContent.setVisibility(isVisible ? View.VISIBLE : View.GONE);
         mRvFolderList.setVisibility(isVisible ? View.GONE : View.VISIBLE);
+        if (isVisible) {
+            CoordinatorLayout coordinator = (CoordinatorLayout) findViewById(R.id.ll_main_container);
+            AppBarLayout appbar = (AppBarLayout) findViewById(R.id.abl_action_bar);
+            CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appbar.getLayoutParams();
+            AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
+            int[] consumed = new int[2];
+            appbar.setExpanded(true);
+//            behavior.onNestedPreScroll(coordinator, appbar, null, 0, 1000, consumed,0);
+//            behavior.onNestedFling(coordinator, appbar, null, 0, -1000, true);
+        }
     }
 
     @Override
