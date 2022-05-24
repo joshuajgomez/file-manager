@@ -1,51 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp"
+    android:layout_weight="1"
     android:background="@color/white"
     android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
 
-    <ImageView
-        android:id="@+id/iv_back_arrow"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="?attr/selectableItemBackground"
-        android:padding="13dp"
-        android:src="@drawable/ic_arrow_left_dark"
-        android:visibility="gone" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_action_bar_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@id/iv_back_arrow"
-        android:fontFamily="@font/riffic_free_bold"
-        android:text="@string/app_name"
-        android:textColor="@color/purple_dark"
-        android:textSize="25sp" />
+        <ImageView
+            android:id="@+id/iv_back_arrow"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackground"
+            android:padding="13dp"
+            android:src="@drawable/ic_arrow_left_dark"
+            android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/tv_action_bar_source"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/tv_action_bar_title"
-        android:text="sdcard"
-        android:textStyle="italic"
-        android:textColor="@color/gray"
-        android:textSize="17sp" />
+        <TextView
+            android:id="@+id/tv_action_bar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/iv_back_arrow"
+            android:fontFamily="@font/riffic_free_bold"
+            android:text="@string/app_name"
+            android:textColor="@color/purple_dark"
+            android:textSize="25sp" />
 
-    <ImageView
-        android:id="@+id/iv_new_folder"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:padding="15dp"
-        android:src="@drawable/ic_hnew_folder_dark" />
+        <TextView
+            android:id="@+id/tv_action_bar_source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/tv_action_bar_title"
+            android:text="~sdcard"
+            android:textColor="@color/gray"
+            android:textSize="17sp"
+            android:textStyle="italic" />
+
+        <ImageView
+            android:id="@+id/iv_new_folder"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="15dp"
+            android:src="@drawable/ic_hnew_folder_dark" />
+
+    </RelativeLayout>
 </RelativeLayout>

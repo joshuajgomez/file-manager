@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements FolderView,
         mLlAppIcon.setOnClickListener(this::onHomeIconPress);
         mRlPathContainer = findViewById(R.id.rl_path_container);
         mTvActionSourceName = findViewById(R.id.tv_action_bar_source);
+        mRlPathContainer.setVisibility(View.GONE);
 
     }
 
