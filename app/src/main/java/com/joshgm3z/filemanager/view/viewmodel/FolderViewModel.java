@@ -63,20 +63,27 @@ public class FolderViewModel {
     }
 
     public void onFileClick(FileData currentFileData) {
-        mCurrentFolderUrl = currentFileData.getUrl();
-        switch (currentFileData.getType()) {
-            case Const.FileType.ROOT_EXT_STORAGE:
-            case Const.FileType.ROOT_INT_STORAGE:
-            case Const.FileType.ROOT_CLOUD: {
-                mCurrentFolderName = currentFileData.getName();
-                mSourceUrl = currentFileData.getUrl();
+        if (currentFileData.getType() == Const.FileType.FOLDER
+                || currentFileData.getType() == Const.FileType.ROOT_EXT_STORAGE
+                || currentFileData.getType() == Const.FileType.ROOT_INT_STORAGE
+        ) {
+            mCurrentFolderUrl = currentFileData.getUrl();
+            switch (currentFileData.getType()) {
+                case Const.FileType.ROOT_EXT_STORAGE:
+                case Const.FileType.ROOT_INT_STORAGE:
+                case Const.FileType.ROOT_CLOUD: {
+                    mCurrentFolderName = currentFileData.getName();
+                    mSourceUrl = currentFileData.getUrl();
+                }
             }
+            if (currentFileData.getType() != Const.FileType.FILE) {
+                // update folder path
+                mCurrentPathList.add(currentFileData);
+            }
+            refreshContent();
+        } else {
+            mView.showMessage("Unable to open file");
         }
-        if (currentFileData.getType() != Const.FileType.FILE) {
-            // update folder path
-            mCurrentPathList.add(currentFileData);
-        }
-        refreshContent();
     }
 
     public void onPathClick(FileData fileData) {

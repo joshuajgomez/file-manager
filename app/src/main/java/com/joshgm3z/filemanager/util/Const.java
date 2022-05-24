@@ -13,18 +13,35 @@ public class Const {
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({
+            FileType.UNKNOWN,
             FileType.ROOT_EXT_STORAGE,
             FileType.ROOT_INT_STORAGE,
             FileType.ROOT_CLOUD,
             FileType.FOLDER,
             FileType.FILE,
+            FileType.PNG,
+            FileType.JPEG,
+            FileType.JPG,
+            FileType.TXT,
     })
     public @interface FileType {
-        int ROOT_EXT_STORAGE = 0;
-        int ROOT_INT_STORAGE = 1;
-        int ROOT_CLOUD = 2;
-        int FOLDER = 3;
-        int FILE = 4;
+        int UNKNOWN = 0;
+        int ROOT_EXT_STORAGE = 1;
+        int ROOT_INT_STORAGE = 2;
+        int ROOT_CLOUD = 3;
+        int FOLDER = 4;
+        int FILE = 5;
+        int PNG = 6;
+        int JPEG = 7;
+        int JPG = 8;
+        int TXT = 9;
+    }
+
+    public @interface FileExtension {
+        String JPEG = ".jpeg";
+        String JPG = ".jpg";
+        String PNG = ".png";
+        String TXT = ".txt";
     }
 
     @Retention(RetentionPolicy.SOURCE)

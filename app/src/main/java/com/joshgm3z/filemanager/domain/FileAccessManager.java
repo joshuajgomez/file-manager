@@ -41,10 +41,46 @@ public class FileAccessManager {
     private FileData createFileData(File file) {
         FileData fileData = new FileData();
         fileData.setName(file.getName());
-        fileData.setType(file.isDirectory() ? Const.FileType.FOLDER : Const.FileType.FILE);
+        fileData.setType(getFileType(file));
         fileData.setName(file.getName());
         fileData.setUrl(file.getAbsolutePath());
         return fileData;
+    }
+
+    private int getFileType(File file) {
+        int fileType = Const.FileType.UNKNOWN;
+        if (file.isDirectory()) {
+            fileType = Const.FileType.FOLDER;
+        } else {
+            String fileExtension = getFileExtension(file.getName());
+            Logger.a("fileExtension: " + fileExtension);
+            if (fileExtension != null) {
+                switch (fileExtension) {
+                    case Const.FileExtension.PNG:
+                        fileType = Const.FileType.PNG;
+                        break;
+                    case Const.FileExtension.JPG:
+                        fileType = Const.FileType.JPG;
+                        break;
+                    case Const.FileExtension.JPEG:
+                        fileType = Const.FileType.JPEG;
+                        break;
+                    case Const.FileExtension.TXT:
+                        fileType = Const.FileType.TXT;
+                        break;
+                }
+            }
+        }
+        return fileType;
+    }
+
+    private String getFileExtension(String name) {
+        String[] split = name.split("\\.");
+        String ext = null;
+        if (split.length > 1) {
+            ext = split[split.length - 1];
+        }
+        return "." + ext;
     }
 
     public Source initRootExtStorage() {
